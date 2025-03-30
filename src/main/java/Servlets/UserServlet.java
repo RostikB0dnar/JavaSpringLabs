@@ -7,7 +7,7 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/user")
+@WebServlet("/user/*")
 public class UserServlet extends HttpServlet {
 
     @Override
@@ -18,12 +18,20 @@ public class UserServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
 
-        if (username == null) {
-            username = "DefaultUser"; // Якщо користувач вперше зайшов
+        String pathInfo = request.getPathInfo(); // /someUsername
+        if (pathInfo != null && pathInfo.length() > 1) {
+            username = pathInfo.substring(1);
             session.setAttribute("username", username);
         }
-        else
-            username = "OK";
+
+        if (username == null) {
+            username = "DefaultUser";
+            session.setAttribute("username", username);
+        }
+
+        Cookie userCookie = new Cookie("username", username);
+        userCookie.setMaxAge(60 * 60); // 1 година
+        response.addCookie(userCookie);
 
         out.println("<h1>Welcome, " + username + "!</h1>");
     }
@@ -33,6 +41,10 @@ public class UserServlet extends HttpServlet {
         String username = request.getParameter("username");
         HttpSession session = request.getSession();
         session.setAttribute("username", username);
+
+        Cookie userCookie = new Cookie("username", username);
+        userCookie.setMaxAge(60 * 60);
+        response.addCookie(userCookie);
 
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
