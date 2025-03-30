@@ -28,6 +28,8 @@ public class UserServlet extends HttpServlet {
             username = "DefaultUser";
             session.setAttribute("username", username);
         }
+        else
+            username = "Rostyslav";
 
         Cookie userCookie = new Cookie("username", username);
         userCookie.setMaxAge(60 * 60); // 1 година
