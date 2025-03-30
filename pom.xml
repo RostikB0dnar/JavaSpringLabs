@@ -46,7 +46,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <executable>sh</executable>
+                    <executable>cmd</executable>
                     <arguments>
                         <argument>-c</argument>
                         <argument>
