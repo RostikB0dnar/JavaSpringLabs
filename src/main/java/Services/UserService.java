@@ -9,11 +9,11 @@ public class UserService {
     private UserDAO userDAO = new UserDAO();
 
     public List<User> getAllUsers() {
-        return userDAO.GetAllUsers();
+        return userDAO.getAllUsers();
     }
 
     public void registerUser(User user) {
         if(user.getUsername() != null && user.getEmail() != null)
-            userDAO.AddUser(user);
+            userDAO.createUser(user);
     }
 }
