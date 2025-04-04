@@ -6,7 +6,7 @@ import POJO.User;
 import java.util.List;
 
 public class UserService {
-    private UserDAO userDAO;
+    private UserDAO userDAO = new UserDAO();
 
     public List<User> getAllUsers() {
         return userDAO.GetAllUsers();
