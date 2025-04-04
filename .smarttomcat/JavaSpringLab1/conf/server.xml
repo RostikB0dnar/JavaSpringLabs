@@ -179,4 +179,6 @@
       </Host>
     </Engine>
   </Service>
+  <Context path="/servlet-app" docBase="servlet-app" reloadable="true"/>
+
 </Server>
