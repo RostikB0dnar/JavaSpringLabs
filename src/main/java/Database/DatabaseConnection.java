@@ -10,6 +10,18 @@ public class DatabaseConnection {
     private static final String PASSWORD = "5720693";
 
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+        try {
+            // Це важливо!
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            return DriverManager.getConnection(
+                    URL,
+                    USER,
+                    PASSWORD
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
